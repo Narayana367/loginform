@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Register</title>
+        <link href="loin_form.css" rel="stylesheet">
+    </head>
+    <body>
+        <div class="container">
+            <form action="index.html" id="form">
+                <h1>Register</h1>
+                <div class="input-group">
+                    <label>Username</label>
+                    <input type="text" id="username" name="username">
+                    <div class="error"></div>
+                </div>
+                <div class="input-group" >
+                    <label>Email</label>
+                    <input type="email" id="email" name="email">
+                    <div class="error"></div>
+                </div>
+                <div class="input-group">
+                    <label>Password</label>
+                    <input type="password" id="password" name="password">
+                    <div class="error"></div>
+                </div>
+                <div class="input-group">
+                    <label>Confirm Password</label>
+                    <input type="password" id="password" name="cpassword">
+                    <div class="error"></div>
+                </div>
+                <button type="button">submit</button>
+            </form>
+        </div>
+        <script>
+            let form=document.getElementById("form")
+            let username=document.getElementById("username")
+            let email=document.getElementById("email")
+            let password=document.getElementById("password")
+            let cpassword=document.getElementById("cpassword")
+
+
+            form.addEventListener('submit',(e)=>{
+                e.preventDefault();
+                  validate();
+            });
+
+
+
+            function validate(){
+                var usernameval=username.value.trim();
+                var emailval=email.value.trim();
+                var passwordval=password.value.trim();
+                var cpassworval=cpassword.value.trim();
+
+                if(usernameval===""){
+                    setError(username, "enter name")
+                }
+                else{
+                    setSuccess(username)
+                }
+                if(emailval===""){
+                    setError(email,"enter email")
+                }
+                else if(!Emailcheck(emailval)){
+                    setError(email,"please enter valid email")
+                }
+                else{
+                    setSuccess(email)
+                }
+                if(passwordval===""){
+                    setError(password,'enter password')
+                }
+                else if(passwordval.length<8){
+                    setError(password,'minimum 8 character enter')
+                }
+                else{
+                    setSuccess(password)
+                }
+            }
+
+            function setError(input,message){
+    let inputgroup=input.parentElement;
+    let errors=inputgroup.querySelector('.error')
+    errors.innerText=message;
+    inputgroup.classList.add('error');
+    inputgroup.classList.remove('success');
+
+}
+function setSuccess(input){
+    let inputgroup=input.parentElement;
+    let errors=inputgroup.querySelector('.error')
+    errors.innerText=""
+    inputgroup.classList.add('success')
+    inputgroup.classList.remove('error')
+}
+function Emailcheck(input){
+    var email= /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
+    var validate=email.test(input);
+    return validate;
+}
+            
+        </script>
+    </body>
+</html>
